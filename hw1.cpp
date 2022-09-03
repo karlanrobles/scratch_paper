@@ -11,9 +11,19 @@ class Set_Class {
 	public:
 		Set_Class(); 																//empty constructor
 		Set_Class(int size, int arr[]); 						//constructor from set length and set
-		Set_Class  getUnion(int size, int arr[]);
-		
-
+		Set_Class getUnion(Set_Class setB);
+		Set_Class getIntersection(Set_Class setB);		
+		Set_Class getDifference(Set_Class setB);
+		bool isSubset(Set_Class setB);
+		bool isEmpty();
+		bool isElement(int val);
+		bool isEqual(Set_Class setB);
+		int getCardinality(); 
+		void addElement(int val);
+		void removeElement(int val);
+		void clear();
+		int * toArray();
+		void print();
 };
 
 Set_Class::Set_Class(){
@@ -34,8 +44,21 @@ Set_Class::Set_Class(int size, int arr[]){
 	cout << "constructor with size and set\n";
 }
 
-Set_Class Set_Class::getUnion(int size, int arr[]){
+Set_Class Set_Class::getUnion(Set_Class setB){
 }
+
+Set_Class Set_Class::getIntersection(Set_Class setB){}
+Set_Class Set_Class::getDifference(Set_Class setB){}
+bool isSubset(Set_Class setB){}
+bool isEmpty(){}
+bool isElement(int val){}
+bool isEqual(Set_Class setB); 
+int getCardinality();
+void addElement(int val);
+void removeElement(int val);
+void clear();
+int * toArray(); 
+void print();
 
 int main() {
 
