@@ -11,7 +11,9 @@ class Set_Class {
 	public:
 		Set_Class(); 																//empty constructor
 		Set_Class(int size, int arr[]); 						//constructor from set length and set
-		int * getUnion(int size, int arr[]);
+		Set_Class  getUnion(int size, int arr[]);
+		
+
 };
 
 Set_Class::Set_Class(){
@@ -32,7 +34,7 @@ Set_Class::Set_Class(int size, int arr[]){
 	cout << "constructor with size and set\n";
 }
 
-int * Set_Class::getUnion(int size, int arr[]){
+Set_Class Set_Class::getUnion(int size, int arr[]){
 }
 
 int main() {
