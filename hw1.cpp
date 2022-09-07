@@ -9,9 +9,9 @@ class Set_Class {
 	int cardinality;
 	
 	public:
-		Set_Class(); 																//empty constructor
-		Set_Class(int size, int arr[]); 						//constructor from set length and set
-		Set_Class getUnion(Set_Class setB);
+		Set_Class(); 																/* empty constructor											 		*/
+		Set_Class(int size, int arr[]); 						/* constructor from set length and set			 	*/
+		Set_Class getUnion(Set_Class setB);					/* find the union of the set with a given set */
 		Set_Class getIntersection(Set_Class setB);		
 		Set_Class getDifference(Set_Class setB);
 		bool isSubset(Set_Class setB);
@@ -29,47 +29,136 @@ class Set_Class {
 Set_Class::Set_Class(){
 	cardinality = 0; 
 
-	cout << "empty set! \n";
+	cout << "initalized empty set\n";
 }
 
 Set_Class::Set_Class(int size, int arr[]){
 	
 	cardinality = size;
 	
-	for (int i=0; i<=cardinality; i++){
+	for (int i=0; i<=size; i++)
 		elements[i] = arr[i]; 
 	
+	cout << "constructor with size " << size << "\n";
+}
+
+/*for each element in setA, check if in set B, add non-duplicates to array*/
+Set_Class Set_Class::getUnion(Set_Class setB){
+	int unionCardinality = 0;
+	int unionArray[var];
+	int currElem;
+	int tempElem;
+
+	Set_Class unionSet(unionCardinality, unionArray);
+
+
+	for(int i=0; i<cardinality; i++){
+		currElem = elements[i];	
+		unionSet.addElement(currElem);
+	}
+	
+	for(int i=0; i<setB.cardinality; i++){
+		currElem = setB.elements[i];
+		unionSet.addElement(currElem);		
+	}
+	
+	return unionSet;
+}
+
+/*for each element in setA, check if in set B*/
+Set_Class Set_Class::getIntersection(Set_Class setB){
+	
+	int interCardinality = 0;
+	int interArray[var];
+	int currElem;
+	int tempElem;
+
+	for(int i=0; i<cardinality; i++){
+		currElem = elements[i];
+		for (int j=0; j<setB.cardinality; j++){
+			tempElem = setB.elements[j];
+			if (currElem == tempElem){
+				interArray[interCardinality] = currElem;
+				interCardinality++;
+			}
+		}
+	}
+	Set_Class interSet(interCardinality, interArray);
+	return interSet;
+}
+
+
+Set_Class Set_Class::getDifference(Set_Class setB){}
+bool Set_Class::isSubset(Set_Class setB){
+	return true;
+}
+bool Set_Class::isEmpty(){
+	return true;
+}
+
+bool Set_Class::isElement(int val){
+
+	for(int i=0; i<cardinality; i++){
+		if (elements[i] == val){
+			return true;
+		}
 	}
 
-	cout << "constructor with size and set\n";
+	return false;
 }
 
-Set_Class Set_Class::getUnion(Set_Class setB){
+
+bool Set_Class::isEqual(Set_Class setB){} 
+int Set_Class::getCardinality(){
+	return cardinality;
 }
 
-Set_Class Set_Class::getIntersection(Set_Class setB){}
-Set_Class Set_Class::getDifference(Set_Class setB){}
-bool isSubset(Set_Class setB){}
-bool isEmpty(){}
-bool isElement(int val){}
-bool isEqual(Set_Class setB); 
-int getCardinality();
-void addElement(int val);
-void removeElement(int val);
-void clear();
-int * toArray(); 
-void print();
+void Set_Class::addElement(int val){
+		
+}
+
+void Set_Class::removeElement(int val){}
+void Set_Class::clear(){}
+int * Set_Class::toArray(){}
+void Set_Class::print(){
+
+	cout << "Set: ";
+
+for (int i=0; i<cardinality; i++){
+		cout << elements[i] << " ";
+	}
+
+cout << "\n";
+}
 
 int main() {
 
 	cout << "Hello World!\n";
 	
 	const int var1 = 5;
-	int elems[var1] = {99, 97, 95, 93, 91};
+	int elems[var1] = {99, 98, 96, 95, 94};
+	int elems2[var1] = {99, 97, 95, 93, 91};
+	int interCar; 
 
-	Set_Class mySet; 
-	Set_Class mySet2(var1, elems); 
+	Set_Class mySet(var1, elems); 
+	Set_Class mySet2(var1, elems2); 
+	Set_Class interSet, unionSet, addSet;
 	
+	interSet = mySet.getIntersection(mySet2);
+	unionSet = mySet.getUnion(mySet2); 
+	cout <<  mySet.isElement(94);
+
+//	mySet.print();
+//	mySet2.print();
+
+	cout << "intersection\n";	
+	interSet.print();	
+	
+	cout << "union\n";
+	unionSet.print();
+	
+	cout << "add\n";
+	addSet.print();
 	return 0;
 
 } 
