@@ -26,24 +26,32 @@ class Set_Class {
 		void print();
 };
 
+
+
+/*initialize empty set*/
 Set_Class::Set_Class(){
 	cardinality = 0; 
-
-	cout << "initalized empty set\n";
 }
 
+
+/*initialize set given size and elements*/
 Set_Class::Set_Class(int size, int arr[]){
 	
 	cardinality = size;
 	
-	for (int i=0; i<=size; i++)
+	for (int i=0; i<size; i++)
 		elements[i] = arr[i]; 
 	
-	cout << "constructor with size " << size << "\n";
+	cout << "Initialized set\n"; 
 }
 
-/*for each element in setA, check if in set B, add non-duplicates to array*/
+
+
+/*add each element in setA to union set 
+	check if setB elements are in union set
+	add non-duplicates elements to union set*/
 Set_Class Set_Class::getUnion(Set_Class setB){
+
 	int unionCardinality = 0;
 	int unionArray[var];
 	int currElem;
@@ -65,7 +73,12 @@ Set_Class Set_Class::getUnion(Set_Class setB){
 	return unionSet;
 }
 
-/*for each element in setA, check if in set B*/
+
+
+/*for each element in setA, check if in set B
+	insert matching elements to intersection array
+	create intersection set
+*/
 Set_Class Set_Class::getIntersection(Set_Class setB){
 	
 	int interCardinality = 0;
@@ -83,18 +96,52 @@ Set_Class Set_Class::getIntersection(Set_Class setB){
 			}
 		}
 	}
+
 	Set_Class interSet(interCardinality, interArray);
 	return interSet;
 }
 
 
-Set_Class Set_Class::getDifference(Set_Class setB){}
 
+/*remove matching elements
+	for all elements in setA, 
+		if not match - insert in difference
+		if matche - do not insert
+*/
+Set_Class Set_Class::getDifference(Set_Class setB){
 
-bool Set_Class::isSubset(Set_Class setB){
-	return true;
+	int currElement;
+
+	int diffCardinality = 0;
+	int diffArray[var];
+	Set_Class diffSet(diffCardinality, diffArray);
+
+	for (int i=0; i<setB.cardinality; i++){
+		currElement = setB.elements[i];
+		if (not(this->isElement(currElement)))
+			diffSet.addElement(currElement);
+	}
+	return diffSet;
 }
 
+/*
+	if 
+		for all items in setB 
+			in setA
+*/
+bool Set_Class::isSubset(Set_Class setB){
+	
+	int currElement;
+	bool isSub = false;
+
+	for (int i=0; i<setB.cardinality; i++){
+		currElement = setB.elements[i];
+		if (not(this->isElement(currElement))) 
+			return isSub;
+	}
+
+	return true;
+}
 
 
 bool Set_Class::isEmpty(){
@@ -103,12 +150,10 @@ bool Set_Class::isEmpty(){
 }
 
 
-
-
 bool Set_Class::isElement(int val){
 
 	for(int i=0; i<cardinality; i++){
-		if (elements[i] == val){
+		if (this->elements[i] == val){
 			return true;
 		}
 	}
@@ -118,7 +163,10 @@ bool Set_Class::isElement(int val){
 
 
 
-bool Set_Class::isEqual(Set_Class setB){} 
+bool Set_Class::isEqual(Set_Class setB){
+	if (setB.isSubset(*this) and this->isSubset(setB))
+		return true;
+} 
 
 
 int Set_Class::getCardinality(){
@@ -135,13 +183,37 @@ void Set_Class::addElement(int val){
 
 
 /*
-	find element index
+	find element index by looping through elements
 	shift everything after that index over -1
 	cardinality --
 */
 void Set_Class::removeElement(int val){
 	
+	int currElement;
 
+	int valIndex; 
+	int remCardinality = cardinality - 1;
+	int remArray[var];
+
+	Set_Class remSet(remCardinality, remArray);
+
+	for (int i=0; i<cardinality; i++){
+		currElement = elements[i];
+		if (currElement == val){
+			valIndex = i;
+		}
+	}
+
+	for (int i=0; i<cardinality; i++){
+		currElement = elements[i];
+		if (not((i==valIndex)))
+			remSet.addElement(currElement);
+	}
+
+	this->cardinality = remCardinality;
+	
+	for (int i=0; i<cardinality; i++)
+		this->elements[i] = remArray[i];
 }
 
 
@@ -159,7 +231,10 @@ void Set_Class::clear(){
 
 
 
-int * Set_Class::toArray(){}
+int * Set_Class::toArray(){
+	return elements;
+
+}
 
 
 
