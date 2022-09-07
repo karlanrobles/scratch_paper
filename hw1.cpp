@@ -89,12 +89,21 @@ Set_Class Set_Class::getIntersection(Set_Class setB){
 
 
 Set_Class Set_Class::getDifference(Set_Class setB){}
+
+
 bool Set_Class::isSubset(Set_Class setB){
 	return true;
 }
+
+
+
 bool Set_Class::isEmpty(){
-	return true;
+	if (cardinality == 0)
+		return true;
 }
+
+
+
 
 bool Set_Class::isElement(int val){
 
@@ -108,18 +117,53 @@ bool Set_Class::isElement(int val){
 }
 
 
+
 bool Set_Class::isEqual(Set_Class setB){} 
+
+
 int Set_Class::getCardinality(){
 	return cardinality;
 }
 
 void Set_Class::addElement(int val){
-		
+	if (not(this->isElement(val))){
+		elements[cardinality] = val;
+		cardinality++;
+	}
 }
 
-void Set_Class::removeElement(int val){}
-void Set_Class::clear(){}
+
+
+/*
+	find element index
+	shift everything after that index over -1
+	cardinality --
+*/
+void Set_Class::removeElement(int val){
+	
+
+}
+
+
+/*
+	set all elements to zero
+	cardinality is zero 
+*/
+void Set_Class::clear(){
+	
+	for(int i=0; i<cardinality; i++)
+		elements[i] = 0; 
+
+	cardinality = 0;
+}
+
+
+
 int * Set_Class::toArray(){}
+
+
+
+
 void Set_Class::print(){
 
 	cout << "Set: ";
@@ -140,25 +184,25 @@ int main() {
 	int elems2[var1] = {99, 97, 95, 93, 91};
 	int interCar; 
 
-	Set_Class mySet(var1, elems); 
-	Set_Class mySet2(var1, elems2); 
+	Set_Class setA(var1, elems); 
+	Set_Class setB(var1, elems2); 
 	Set_Class interSet, unionSet, addSet;
 	
-	interSet = mySet.getIntersection(mySet2);
-	unionSet = mySet.getUnion(mySet2); 
-	cout <<  mySet.isElement(94);
+	cout << "Set A: "; 
+	setA.print();
+	
+	cout << "Set B: ";
+	setB.print();
+	
+	interSet = setA.getIntersection(setB);
+	unionSet = setA.getUnion(setB); 
 
-//	mySet.print();
-//	mySet2.print();
-
-	cout << "intersection\n";	
+	cout << "Intersection of sets A & B\n";	
 	interSet.print();	
 	
-	cout << "union\n";
+	cout << "Union of sets A & B\n";
 	unionSet.print();
 	
-	cout << "add\n";
-	addSet.print();
 	return 0;
 
 } 
